@@ -6,6 +6,8 @@ public class sets{
         s.add(1);
         s.add(2);
         s.add(3);
+        s.add(4);
+        s.add(5);
          System.out.println("==============SET EXAMPLE===============");
         System.out.println(s);
         HashSet<Integer> h=new HashSet<>();
@@ -31,13 +33,16 @@ public class sets{
         t.add(200);
         System.out.println("==============TREESET EXAMPLE===============");
         System.out.println(t);
+        System.out.println(t.contains(100));
+
         NavigableSet <Integer> i=new TreeSet<>();
-        i.add(1);
-        i.add(2);
-        i.add(3);
-        i.add(5);
-        i.add(4);
+        for(Integer r:s){
+            i.add(r);
+        }
         System.out.println("==============NAVIGABLESET EXAMPLE===============");
+        System.out.println(i);
+        System.out.println("Set is empty:"+i.isEmpty());
+        System.out.println(i.remove(5));
         System.out.println(i);
     }
 }
