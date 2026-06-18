@@ -1,3 +1,5 @@
+
+
 class messagesender extends Thread{
     public messagesender(String name){
         super(name);
@@ -17,6 +19,7 @@ class messagesender extends Thread{
 }
 public class MessageApplication{
     public static void main(String[] args) throws InterruptedException {
+        
         messagesender s=new messagesender("Yash");
         messagesender s2=new messagesender("Hello");
 

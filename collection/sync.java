@@ -3,13 +3,13 @@ public class sync{
         System.out.println("order pizza");
 
         preparepizza();
-        System.out.println("succesfully ordered✅");
+        System.out.println("succesfully ordered");
     }
     static void preparepizza(){
         try {
             Thread.sleep(1000);
             System.out.println("pizza delivered");
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("Intrepted"+e);
         }
     }

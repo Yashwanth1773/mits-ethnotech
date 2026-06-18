@@ -1,0 +1,147 @@
+create database csd;
+create table students (name varchar(20),id int primary key,dept varchar(10));
+insert into students values("Yash",1,"CSD");
+insert into students values("vara",2,"CSD"),("venky",3,"CSD"),("sandy",4,"CSD");
+select * from students;
+alter table students add phone_no int;
+update students set phone_no=98959484 where id=1;
+update students set phone_no=89898989 where id=2;
+update students set phone_no=78787878 where id=3;
+update students set phone_no=69696969 where id=4;
+desc students;
+alter table students add email varchar(20);
+alter table students rename column email to address;
+alter table students drop address;
+insert into students values("subbu",5,"CSD",23232323);
+delete from students where id=3;
+
+create table std (id int auto_increment primary key,name varchar(30) not null,email varchar(20) unique not null,age int , city varchar(10),score decimal(5,3) default 0.00,
+					enroll date ,is_Active boolean default true,created_at timestamp default current_timestamp); 
+desc std;
+select * from std;
+insert into std values(1,"yash","yash@gmail.com",20,"MPL",80.00,'2025-10-01',true,'2026-10-10');
+insert into std values(2,"vara","vara@gmail.com",20,"ANP",70.00,'2025-10-03',true,'2026-10-11');
+insert into std
+values
+(3,'Ravi', 'ravi@gmail.com', 21, 'Hyderabad', 85.500, '2026-06-01', true,'2026-08-01'),
+
+(4,'Priya', 'priya@gmail.com', 22, 'Bangalore', 92.750, '2026-06-02', true,'2026-05-10'),
+
+(5,'Kiran', 'kiran@gmail.com', 20, 'Chennai', 78.250, '2026-06-03', false,'2026-03-15'),
+
+(6,'Anu', 'anu@gmail.com', 23, 'Mumbai', 88.125, '2026-06-04', true,'2026-05-09'),
+
+(7,'Rahul', 'rahul@gmail.com', 19, 'Delhi', 95.875, '2026-06-05', true,'2026-10-02');
+update std set name="yas h" where id=1;
+select * from std limit 1;
+select * from std where age>19;
+
+select * From std where city="MPL";
+
+select * from std where age is null;
+
+select * from std where age is not null;
+
+select * from std order by age  desc;
+create table temp (age int);
+set @age:=26;
+
+select upper(name),lower(name) from std;
+
+select replace(name,' ','') as new_name from std;
+
+select trim(name) from std;
+select substring(name,1,3) from std;
+
+select mod(10,9);
+
+select rand();
+
+select truncate(85.68474439,2);
+
+select curdate(),curtime() ;
+select now();
+use csd;
+
+select date (enroll) from std;
+
+select city, count(* ) from std group by id;
+
+select avg(score) as average from std;
+
+select name,if(score>75.34,'pass','fail') as result from std;
+
+select name,score,
+case
+	when  score>75.22 then 'A' when  score>50.22 then 'B'
+	else 'C' end as grade from std;
+
+create table Trans (t_id int primary key auto_increment,
+name varchar(20),
+amount int,c_id int UNIQUE);
+insert into Trans values(1,'yash',10000,101);
+insert into Trans values(2,'vara',20000,102);
+insert into Trans values(3,'venky',30000,103);
+insert into Trans values(4,'sandy',400000,104);
+
+insert into Trans(name,amount) values('vivek',25000);
+insert into Trans(name,amount) values('vishnu',75000);
+
+create table customer(customer_id int primary key auto_increment,
+						name varchar(20),amount int,
+						c_id int,foreign key (c_id) references Trans (c_id));
+insert into customer values(1,'yash',100000,101);
+insert into customer values(2,'yash',200000,101);
+insert into customer values(3,'vara',300000,102);
+insert into customer values(4,'venky',400000,103);
+insert into customer values(5,'sandy',550000,104);
+
+insert into customer(name) values('santhosh');
+
+select * from Trans;
+
+select * from customer;
+
+select c.c_id,c.name,c.amount,t.t_id,t.name from customer c inner join Trans t on c.c_id=t.c_id;
+
+select c.name,t.t_id,t.name from customer c left  join Trans t on c.c_id=t.c_id;
+
+select c.c_id,c.name,c.amount,t.t_id,t.name from customer c right join Trans t on c.c_id=t.c_id;
+
+select name,amount,c_id from Trans union select name,amount,c_id  from customer;
+
+select c.c_id,c.name,c.amount,t.t_id,t.name from customer c cross join Trans t on c.c_id=t.c_id;
+
+/* OUTER JOIN(did not use outer join directly.but using union)*/
+select c.c_id, c.name,t.t_id,t.name from customer c left  join Trans t on c.c_id=t.c_id
+ union 
+select c.c_id,c.name,t.t_id,t.name from customer c right join Trans t on c.c_id=t.c_id;
+
+select name from customer c where not exists(select 1 from Trans t where c.c_id=t.c_id);
+
+
+use csd;
+ create table sales (s_id int,amount int,product varchar(20));
+ insert into sales values(1,3000,'laptop');
+ insert into sales values(2,2040,'phone');
+ insert into sales values(3,2300,'tab');
+ insert into sales values(4,1321,'glass');
+ insert into sales values(5,1500,'pouch');
+ 
+ select sum(amount) as total_amount from sales;
+ 
+ select max(amount) as highest from sales;
+ 
+ select count(amount) as total_sales from sales;
+ 
+ select min(amount) as lowest from sales;
+ 
+ select avg(amount) as average,avg(s_id)as avg_all from sales;
+ 
+ select s_id,sum(amount) from sales where amount>1500 group by s_id having sum(amount)>1300;
+ 
+ select product from sales where amount >(select avg(amount) from sales);
+ 
+  select name from customer c where  exists(select 1 from Trans t where c.c_id=t.c_id);
+ 
+ select name from customer c where not exists(select 1 from Trans t where c.c_id=t.c_id);
