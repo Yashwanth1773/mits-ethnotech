@@ -1,0 +1,34 @@
+create database work;
+use work;
+create table customer (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_name VARCHAR(50),
+    account_no VARCHAR(20) UNIQUE);
+    
+    INSERT INTO customer(customer_name,account_no) VALUES('Yash','ACC101'),('vara','ACC102'),('sandy','ACC103'),('venky','ACC104');
+create table  transactions (
+    trans_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,amount DECIMAL(10,2),trans_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id));
+
+insert into transactions(customer_id,amount,trans_date) VALUES(1,5000,'2026-06-01'),(1,2000,'2026-06-01'),(2,3500,'2026-06-02'),(2,3500,'2026-06-02'),(3,1000,'2026-06-03');
+
+/*1. Transactions Exceeding 3000*/
+select *from transactions where amount > 3000;
+
+/*2. Average Transaction Per Customer Per Day*/
+select customer_id,trans_date,avg(amount) AS avg_amount
+from transactions group by customer_id, trans_date;
+
+/*3. Total Amount Transacted by Each Customer*/
+select customer_id,SUM(amount) AS total_amount
+from transactions group by customer_id;
+
+/*4. Repeated Transactions*/
+select customer_id,amount,COUNT(*) AS count from transactions
+group by customer_id, amount having COUNT(*) > 1;
+
+/*5. Customers With No Transactions*/
+select c.customer_id,c.customer_name from customer c
+LEFT JOIN transactions t ON c.customer_id = t.customer_id
+where t.trans_id IS NULL;
