@@ -1,0 +1,69 @@
+-- View
+create table accounts (a_id int,name varchar(20),amount int);
+
+insert into accounts values(1,'Yash',15000);
+insert into accounts values(2,'vara',25000);
+insert into accounts values(3,'sandy',45000);
+insert into accounts values(4,'venky',5000);
+create view account_id as select a_id,amount from accounts where amount>20000;
+
+select * from account_id;
+
+create table account (a_id int primary key,name varchar(20),amount int,customer_id int ,foreign key(customer_id)references customer(customer_id));
+insert into account values(101,'Yash',100000,1);
+
+insert into account values(102,'vara',300000,3);
+insert into account values(103,'sandy',550000,5);
+insert into account values(104,'venky',400000,4);
+
+create view customer_d as select a.a_id,c.customer_id,a.amount from account a left join customer c on a.customer_id=c.customer_id;
+
+select * from customer_d;
+
+-- Stored procedure
+delimiter //
+create procedure get_account() begin select * from account;
+end //
+delimiter ;
+
+call get_account();
+
+delimiter //
+create procedure get_name() begin select name from account; end //
+delimiter ;
+call get_name();
+
+delimiter //
+create procedure get_name_id(in id int) begin select a_id from account where a_id=id; end //
+delimiter ;
+call get_name_id(102);
+-- Triggers
+ create table emp (eid int primary key auto_increment,ename varchar(20),salary int);
+ insert into emp values(1,'yash',10000),(2,'vara',20000),(3,'sandy',30000);
+ select * from emp;
+ -- message trigger
+ 
+ create table emp_mss (message varchar(20));
+ 
+ -- trigger message
+ delimiter //
+ create trigger emp_insert_trigger
+ after insert on emp 
+ for each row begin insert into emp_mss(message)values(concat('emp added: ',NEW.ename));
+ end//
+ delimiter ;
+ 
+ insert into emp(ename,salary) values('venky',5000);
+ 
+ select * from emp_mss;
+
+ delimiter //
+  create trigger emp_update_trigger
+  after update on emp
+  for each row begin
+  insert into emp_mss(message) values(
+  concat('emp salary changed : ',old.salary,'to',new.salary));
+  end //
+  delimiter ;
+  
+  update emp set salary=60000 where eid=4;
