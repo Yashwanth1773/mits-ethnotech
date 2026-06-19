@@ -67,3 +67,14 @@ call get_name_id(102);
   delimiter ;
   
   update emp set salary=60000 where eid=4;
+
+ delimiter //
+  create trigger emp_delete_trigger
+  after delete on emp
+  for each row begin
+  insert into emp_mss(message) values(
+  concat('employee deleted : ',old.eid));
+  end //
+  delimiter ;
+  
+  delete from emp where eid = 4;
