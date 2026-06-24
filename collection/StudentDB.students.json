@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "6a3a30666a59e4d053a898a2"
+  },
+  "Name": "Yash",
+  "ID": 1,
+  "place": "mpl",
+  "age": 20
+},
+{
+  "_id": {
+    "$oid": "6a3a33076a59e4d053a898a3"
+  },
+  "Name": "sandy",
+  "ID": 2,
+  "place": "Hindupur",
+  "age": 21
+},
+{
+  "_id": {
+    "$oid": "6a3a33076a59e4d053a898a4"
+  },
+  "Name": "vara",
+  "ID": 3,
+  "place": "anantapur",
+  "age": 21
+},
+{
+  "_id": {
+    "$oid": "6a3a33076a59e4d053a898a5"
+  },
+  "Name": "venky",
+  "ID": 4,
+  "place": "kothakota",
+  "age": 21
+},
+{
+  "_id": {
+    "$oid": "6a3a65d2310e4ed16757feaa"
+  },
+  "Name": "vara",
+  "address": {
+    "place": "anantapur"
+  }
+}]
